@@ -1,0 +1,63 @@
+name: Resume CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  # ─── Job 1: Check โค้ด ───
+  check:
+    name: Check Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check HTML
+        run: npx htmlhint index.html
+
+      - name: Check CSS
+        run: npx stylelint style.css
+
+      - name: Check JS
+        run: npx eslint script.js
+
+  # ─── Job 2: Deploy (รันหลัง check ผ่านเท่านั้น) ───
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: check                      # รอ job check ผ่านก่อน
+    if: github.ref == 'refs/heads/main'  # deploy เฉพาะ branch main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'                   # อัปโหลดทุกไฟล์ในโฟลเดอร์
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
