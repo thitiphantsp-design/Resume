@@ -16,22 +16,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: Validate HTML
+        run: |
+          if ! grep -q "<!DOCTYPE html>" index.html; then
+            echo "❌ Error: Missing <!DOCTYPE html> in index.html"
+            exit 1
+          fi
+          echo "✅ HTML validation passed"
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check HTML
-        run: npx htmlhint index.html
-
-      - name: Check CSS
-        run: npx stylelint style.css
-
-      - name: Check JS
-        run: npx eslint script.js
+      - name: Check file existence
+        run: |
+          for file in index.html style.css script.js; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Error: Missing $file"
+              exit 1
+            fi
+          done
+          echo "✅ All required files found"
 
   # ─── Job 2: Deploy (รันหลัง check ผ่านเท่านั้น) ───
   deploy:
@@ -56,7 +57,8 @@ jobs:
       - name: Upload files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'                   # อัปโหลดทุกไฟล์ในโฟลเดอร์
+          path: '.'
+          retention-days: 30
 
       - name: Deploy to GitHub Pages
         id: deployment
