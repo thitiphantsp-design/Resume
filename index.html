@@ -18,7 +18,7 @@
         <h1>Thitiphant <em>Sudpom</em></h1>
         <p class="header-role">Software Tester · Nonthaburi, Thailand</p>
         <nav class="nav-dots">
-          <a href="#about">About me</a>
+          <a href="#summary">Summary</a>
           <a href="#experience">Experience</a>
           <a href="#education">Education</a>
           <a href="#projects">Projects</a>
@@ -26,20 +26,19 @@
         </nav>
       </header>
 
-      <!-- ─── About ─── -->
-      <section id="about">
+      <!-- ─── Summary ─── -->
+      <section id="summary">
         <div class="section-header">
-          <span class="section-label">About me</span>
+          <span class="section-label">Summary</span>
           <div class="section-line"></div>
         </div>
         <p class="about-text">
-          Quality Assurance with experience in Manual and Automated testing for
-          Web and Mobile platforms. Proven track record in developing test
-          frameworks using Playwright and TypeScript, resulting in an 80%
-          reduction in smoke test duration.SIT/UAT orchestration, and ensuring
-          UX/UI compliance with design guidelines. A detail-oriented specialist
-          skilled in creating comprehensive Test Plans, Test Cases, and Summary
-          Reports to ensure system reliability.
+          Detail-oriented Quality Assurance transitioning toward Software
+          Development. Experienced in automated testing with Playwright and
+          TypeScript, SIT/UAT orchestration, and UX/UI compliance — with a
+          strong foundation in writing clean, testable code. Seeking
+          opportunities as a Software Tester or Software Developer where both
+          skill sets drive product quality end-to-end.
         </p>
       </section>
 
@@ -118,29 +117,26 @@
           <div class="section-line"></div>
         </div>
         <div class="projects-grid">
-          <a href="#" class="project-card">
-            <span class="project-tag">HTML / CSS</span>
-            <p class="project-name">Profile Card</p>
+          <div class="project-card" data-project="hris">
+            <span class="project-tag">Playwright / TypeScript</span>
+            <p class="project-name">Automated Testing System for HRIS</p>
             <p class="project-desc">
-              การ์ดแนะนำตัวส่วนตัว responsive บนทุกอุปกรณ์
+              End-to-end automated testing framework using Playwright and TypeScript with POM architecture.
             </p>
-          </a>
-          <a href="#" class="project-card">
-            <span class="project-tag">JavaScript</span>
-            <p class="project-name">To-Do List App</p>
-            <p class="project-desc">
-              แอปจัดการรายการสิ่งที่ต้องทำ บันทึกข้อมูลใน localStorage
-            </p>
-          </a>
-          <a href="#" class="project-card">
-            <span class="project-tag">API</span>
-            <p class="project-name">Weather App</p>
-            <p class="project-desc">
-              ดึงข้อมูลสภาพอากาศจริงจาก OpenWeather API มาแสดงผล
-            </p>
-          </a>
+            <button class="project-btn" onclick="openProjectModal(event)">View Details</button>
+          </div>
         </div>
       </section>
+
+      <!-- ─── Project Modal ─── -->
+      <div id="projectModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeProjectModal()">&times;</span>
+          <div id="modalBody">
+            <!-- Modal content loaded by JavaScript -->
+          </div>
+        </div>
+      </div>
 
       <!-- ─── Contact ─── -->
       <section id="contact">
@@ -166,9 +162,9 @@
           >
             <span class="contact-icon">in</span> LinkedIn
           </a>
-          <a href="tel:+66812345678" class="contact-item">
+          <div class="contact-item">
             <span class="contact-icon">☎</span> 063-245-4335
-          </a>
+          </div>
         </div>
       </section>
 
@@ -179,5 +175,57 @@
       </footer>
     </div>
     <script src="script.js"></script>
+    <script>
+      const projectData = {
+        hris: {
+          tag: 'Playwright / TypeScript',
+          title: 'Automated Testing System for HRIS',
+          description: 'An end-to-end automated testing framework for the Provident Fund module designed to streamline monthly smoke tests and reduce redundant manual tasks.',
+          tech: ['Playwright', 'TypeScript', 'Page Object Model (POM)', 'Allure Report'],
+          features: [
+            'Cross-browser testing',
+            'Parallel test execution for faster results',
+            'Screenshot and video recording on failures',
+            'Detailed HTML reporting with Allure',
+
+            'Reusable test utilities and helpers'
+          ],
+          highlights: '80% reduction in monthly smoke test execution time'
+        }
+      };
+
+      function openProjectModal(event) {
+        const card = event.target.closest('.project-card');
+        const projectId = card.getAttribute('data-project');
+        const project = projectData[projectId];
+        const modal = document.getElementById('projectModal');
+        const modalBody = document.getElementById('modalBody');
+
+        let featuresHTML = project.features.map(f => `<li>${f}</li>`).join('');
+        let techHTML = project.tech.map(t => `<span class="project-tag-modal">${t}</span>`).join('');
+
+        modalBody.innerHTML = `
+          <h2>${project.title}</h2>
+          <p class="modal-description">${project.description}</p>
+          <h3>Technology Stack</h3>
+          <div class="modal-tech">${techHTML}</div>
+          <h3>Key Features</h3>
+          <ul class="modal-features">${featuresHTML}</ul>
+          <p class="modal-highlight"><strong>Result:</strong> ${project.highlights}</p>
+        `;
+        modal.style.display = 'block';
+      }
+
+      function closeProjectModal() {
+        document.getElementById('projectModal').style.display = 'none';
+      }
+
+      window.onclick = function(event) {
+        const modal = document.getElementById('projectModal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      }
+    </script>
   </body>
 </html>
