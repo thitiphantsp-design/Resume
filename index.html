@@ -1,16 +1,30 @@
 <!doctype html>
 <html lang="th">
   <head>
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         หัวของเอกสาร (Head Section)
+         ─────────────────────────────────────────────────────────────────────
+         ส่วนนี้มีข้อมูลจำเป็นสำหรับเบราว์เซอร์ เช่น charset, viewport สำหรับ
+         responsive design และ import font จาก Google Fonts
+         ═══════════════════════════════════════════════════════════════════════ -->
     <meta charset="UTF-8" />
+    <!-- viewport: ทำให้หน้าแสดงผลถูกต้องบน mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thitiphant_Resume</title>
+    <!-- นำเข้า fonts จาก Google Fonts สำหรับ typography ที่สวยงาม -->
     <link
       href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <!-- นำเข้าไฟล์ CSS หลัก -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         หน้าหลัก (Main Page Container)
+         ─────────────────────────────────────────────────────────────────────
+         class="page" ควบคุมความกว้างสูงสุดและการจัดระยะขอบ
+         ═══════════════════════════════════════════════════════════════════════ -->
     <div class="page">
       <!-- ─── Header ─── -->
       <header>
@@ -110,44 +124,72 @@
         </div>
       </section>
 
-      <!-- ─── Projects ─── -->
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           โปรเจกต์ (Projects Section)
+           ─────────────────────────────────────────────────────────────────────
+           ส่วนนี้แสดงโครงการที่สำเร็จ แต่ละการ์ดมี:
+           - project-tag: ป้ายบ่งบอกเทคโนโลยี
+           - project-name: ชื่อโครงการ
+           - project-desc: คำอธิบายสั้นๆ
+           - project-btn: ปุ่มเปิด modal สำหรับดูรายละเอียด
+           ═══════════════════════════════════════════════════════════════════════ -->
       <section id="projects">
         <div class="section-header">
           <span class="section-label">Projects</span>
           <div class="section-line"></div>
         </div>
         <div class="projects-grid">
+          <!-- HRIS Automated Testing Project Card -->
           <div class="project-card" data-project="hris">
             <span class="project-tag">Playwright / TypeScript</span>
             <p class="project-name">Automated Testing System for HRIS</p>
             <p class="project-desc">
               End-to-end automated testing framework using Playwright and TypeScript with POM architecture.
             </p>
+            <!-- onclick="openProjectModal(event)" เรียก JavaScript เพื่อเปิด modal -->
             <button class="project-btn" onclick="openProjectModal(event)">View Details</button>
           </div>
         </div>
       </section>
 
-      <!-- ─── Project Modal ─── -->
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           โปรเจกต์ Modal (Project Modal Popup)
+           ─────────────────────────────────────────────────────────────────────
+           ป๊อปอัปแสดงรายละเอียดโครงการ เมื่อผู้ใช้คลิก "View Details"
+           - id="projectModal" ใช้ในการค้นหา element จาก JavaScript
+           - modal-close: ปุ่มปิด (X)
+           - modalBody: ส่วนจะเติมเนื้อหาโดย JavaScript (dynamic HTML)
+           ═══════════════════════════════════════════════════════════════════════ -->
       <div id="projectModal" class="modal">
         <div class="modal-content">
+          <!-- ปุ่มปิด (X) ด้านขวาบน -->
           <span class="modal-close" onclick="closeProjectModal()">&times;</span>
+          <!-- ส่วนเนื้อหา: จะถูก fill โดย JavaScript -->
           <div id="modalBody">
             <!-- Modal content loaded by JavaScript -->
           </div>
         </div>
       </div>
 
-      <!-- ─── Contact ─── -->
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           ติดต่อ (Contact Section)
+           ─────────────────────────────────────────────────────────────────────
+           ส่วนนี้แสดงข้อมูลติดต่อเสมือน:
+           - a.contact-item: ลิงค์ที่คลิกได้ (email, GitHub, LinkedIn)
+           - div.contact-item: ข้อมูลไม่สามารถคลิกได้ (เบอร์โทรศัพท์)
+           - contact-icon: ไอคอนตัวอักษรเพื่อระบุประเภท
+           ═══════════════════════════════════════════════════════════════════════ -->
       <section id="contact">
         <div class="section-header">
           <span class="section-label">Contact</span>
           <div class="section-line"></div>
         </div>
         <div class="contact-grid">
+          <!-- Email link -->
           <a href="mailto:thitiphant.sp@gmail.com" class="contact-item">
             <span class="contact-icon">✉</span> thitiphant.sp@gmail.com
           </a>
+          <!-- GitHub link -->
           <a
             href="https://github.com/thitiphantsp-design"
             target="_blank"
@@ -155,6 +197,7 @@
           >
             <span class="contact-icon">⌥</span> GitHub
           </a>
+          <!-- LinkedIn link -->
           <a
             href="https://www.linkedin.com/in/thitipan-sudpom-77b106409/"
             target="_blank"
@@ -162,70 +205,28 @@
           >
             <span class="contact-icon">in</span> LinkedIn
           </a>
+          <!-- Phone number (non-clickable) -->
           <div class="contact-item">
             <span class="contact-icon">☎</span> 063-245-4335
           </div>
         </div>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════════════════════════
+           ส่วนท้าย (Footer)
+           ─────────────────────────────────────────────────────────────────────
+           ส่วนท้ายของหน้าแสดงข้อมูลลิขสิทธิ์ และปีจะถูกอัปเดตอัตโนมัติจาก 
+           JavaScript (script.js)
+           ═══════════════════════════════════════════════════════════════════════ -->
       <footer>
         <p>
           Designed and developed with HTML &amp; CSS — © 2026 Thitiphant Sudpom
         </p>
       </footer>
     </div>
+
+    <!-- ─── JavaScript ─── -->
+    <!-- เชื่อมต่อไฟล์ JavaScript ที่มีฟังก์ชันสำหรับ modal, navigation, footer -->
     <script src="script.js"></script>
-    <script>
-      const projectData = {
-        hris: {
-          tag: 'Playwright / TypeScript',
-          title: 'Automated Testing System for HRIS',
-          description: 'An end-to-end automated testing framework for the Provident Fund module designed to streamline monthly smoke tests and reduce redundant manual tasks.',
-          tech: ['Playwright', 'TypeScript', 'Page Object Model (POM)', 'Allure Report'],
-          features: [
-            'Cross-browser testing',
-            'Parallel test execution for faster results',
-            'Screenshot and video recording on failures',
-            'Detailed HTML reporting with Allure',
-
-            'Reusable test utilities and helpers'
-          ],
-          highlights: '80% reduction in monthly smoke test execution time'
-        }
-      };
-
-      function openProjectModal(event) {
-        const card = event.target.closest('.project-card');
-        const projectId = card.getAttribute('data-project');
-        const project = projectData[projectId];
-        const modal = document.getElementById('projectModal');
-        const modalBody = document.getElementById('modalBody');
-
-        let featuresHTML = project.features.map(f => `<li>${f}</li>`).join('');
-        let techHTML = project.tech.map(t => `<span class="project-tag-modal">${t}</span>`).join('');
-
-        modalBody.innerHTML = `
-          <h2>${project.title}</h2>
-          <p class="modal-description">${project.description}</p>
-          <h3>Technology Stack</h3>
-          <div class="modal-tech">${techHTML}</div>
-          <h3>Key Features</h3>
-          <ul class="modal-features">${featuresHTML}</ul>
-          <p class="modal-highlight"><strong>Result:</strong> ${project.highlights}</p>
-        `;
-        modal.style.display = 'block';
-      }
-
-      function closeProjectModal() {
-        document.getElementById('projectModal').style.display = 'none';
-      }
-
-      window.onclick = function(event) {
-        const modal = document.getElementById('projectModal');
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      }
-    </script>
   </body>
 </html>

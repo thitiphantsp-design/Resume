@@ -1,4 +1,38 @@
-/* ─── Variables ─── */
+/* ═════════════════════════════════════════════════════════════════════════════
+   RESUME STYLESHEET
+   ═════════════════════════════════════════════════════════════════════════════
+   
+   Color Scheme:
+   - Warm, professional palette with earth tones
+   - Accent color: warm orange/brown (#c4622d)
+   - Text: dark charcoal (#1a1814)
+   - Background: off-white paper color (#faf9f7)
+   
+   Typography:
+   - Serif (Lora): Headings and important text
+   - Sans-serif (DM Sans): Body text and UI elements
+   
+   Structure:
+   1. Variables & Reset
+   2. Base Styles
+   3. Layout
+   4. Header/Navigation
+   5. Sections (About, Timeline, etc.)
+   6. Project Cards & Modal
+   7. Contact
+   8. Footer
+   9. Animations
+   10. Responsive Design
+═════════════════════════════════════════════════════════════════════════════ */
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   VARIABLES & CSS RESET
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * CSS Reset: Remove default margins, padding, and border-box inconsistencies
+ * Applies to all elements and pseudo-elements for consistency
+ */
 *,
 *::before,
 *::after {
@@ -7,24 +41,40 @@
   padding: 0;
 }
 
+/**
+ * CSS Custom Properties (Variables)
+ * Centralized color and font definitions for easy theme changes
+ */
 :root {
-  --ink: #1a1814;
-  --ink-soft: #5a5650;
-  --ink-muted: #9a9590;
-  --paper: #faf9f7;
-  --paper-warm: #f2ede6;
-  --accent: #c4622d;
-  --accent-soft: #e8d5c8;
-  --border: #e0d8d0;
-  --font-serif: "Lora", Georgia, serif;
-  --font-sans: "DM Sans", sans-serif;
+  --ink: #1a1814; /* Main text color */
+  --ink-soft: #5a5650; /* Secondary text color */
+  --ink-muted: #9a9590; /* Tertiary text color */
+  --paper: #faf9f7; /* Main background */
+  --paper-warm: #f2ede6; /* Card background */
+  --accent: #c4622d; /* Primary accent color */
+  --accent-soft: #e8d5c8; /* Light accent background */
+  --border: #e0d8d0; /* Border color */
+  --font-serif: "Lora", Georgia, serif; /* Heading font */
+  --font-sans: "DM Sans", sans-serif; /* Body font */
 }
 
-/* ─── Base ─── */
+/* ═════════════════════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * HTML: Enable smooth scrolling for anchor links
+ */
 html {
   scroll-behavior: smooth;
 }
 
+/**
+ * BODY: Main page styling
+ * - Background: warm paper color
+ * - Font: sans-serif for readability
+ * - Line height: generous spacing for comfortable reading
+ */
 body {
   background: var(--paper);
   color: var(--ink);
@@ -34,14 +84,31 @@ body {
   min-height: 100vh;
 }
 
-/* ─── Layout ─── */
+/* ═════════════════════════════════════════════════════════════════════════════
+   LAYOUT
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * PAGE CONTAINER: Main wrapper
+ * - Max width: 780px for optimal reading width
+ * - Centered with auto margins
+ * - Padding: horizontal spacing and bottom padding for footer
+ */
 .page {
   max-width: 780px;
   margin: 0 auto;
   padding: 0 2rem 6rem;
 }
 
-/* ─── Header / Hero ─── */
+/* ═════════════════════════════════════════════════════════════════════════════
+   HEADER / HERO SECTION
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * HEADER: Top section with name and navigation
+ * - Border bottom: separates from content
+ * - Padding: top for breathing room
+ */
 header {
   padding: 5rem 0 3rem;
   border-bottom: 1px solid var(--border);
@@ -160,12 +227,24 @@ section {
 }
 
 /* ─── Timeline ─── */
+
+/**
+ * TIMELINE CONTAINER: จัดเรียงรายการเป็นแนวตั้ง
+ * - flex-direction: column ทำให้รายการเรียงตามแนวตั้ง
+ * - gap: 2rem ระยะห่างระหว่างแต่ละรายการ
+ */
 .timeline {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
+/**
+ * TIMELINE ITEM: โครงสร้าง 2 คอลัมน์
+ * - Column 1 (120px): แสดงปี/เดือน ชิดขวา
+ * - Column 2 (1fr): แสดงรายละเอียด
+ * - position: relative เพื่อให้ใช้ ::before สำหรับเส้นตั้ง
+ */
 .timeline-item {
   display: grid;
   grid-template-columns: 120px 1fr;
@@ -173,6 +252,13 @@ section {
   position: relative;
 }
 
+/**
+ * TIMELINE LINE: เส้นตั้งระหว่างรายการ
+ * - position: absolute ตำแหน่งเหนือพื้น
+ * - left: 144px จัดให้ตรงกับกึ่งกลางของหลัก 1
+ * - top: 20px, bottom: -2rem ลากเส้นจากบนลงล่าง
+ * - width: 1px ความหนาของเส้น
+ */
 .timeline-item::before {
   content: "";
   position: absolute;
@@ -183,10 +269,18 @@ section {
   background: var(--border);
 }
 
+/**
+ * ซ่อนเส้นของรายการสุดท้าย เพราะไม่ต้องเชื่อมต่อ
+ */
 .timeline-item:last-child::before {
   display: none;
 }
 
+/**
+ * TIMELINE YEAR: ข้อมูลปี/เดือน
+ * - text-align: right ชิดขวา ตรงกับคอลัมน์แรก
+ * - white-space: nowrap ไม่ให้ข้อความขึ้นบรรทัดใหม่
+ */
 .timeline-year {
   font-size: 12px;
   color: var(--ink-muted);
@@ -197,11 +291,21 @@ section {
   white-space: nowrap;
 }
 
+/**
+ * TIMELINE BODY: ส่วนเนื้อหา
+ * - padding-left: 1.5rem เผื่นจากเส้นตั้ง
+ */
 .timeline-body {
   padding-left: 1.5rem;
   padding-bottom: 0.5rem;
 }
 
+/**
+ * TIMELINE DOT: จุดกลมที่ตรงกึ่งกลางของเส้น
+ * - position: absolute ตำแหน่งเหนือพื้น
+ * - left: 140px จัดให้อยู่บนเส้นตั้ง
+ * - border: 2px + outline: 1px สร้างรูปแหวน
+ */
 .timeline-dot {
   position: absolute;
   left: 140px;
@@ -243,12 +347,25 @@ section {
 }
 
 /* ─── Projects ─── */
+
+/**
+ * PROJECTS GRID: เค้าโครงการ์ด responsive
+ * - repeat(auto-fill, minmax(220px, 1fr)) ทำให้การ์ดอัดลงตามขนาดหน้าจอ
+ *   ✓ ถ้ามีพื้นที่ 220px+ จะแสดงการ์ด 1 ใบ
+ *   ✓ ถ้ามีพื้นที่ 440px+ จะแสดง 2 ใบ เป็นต้น
+ * - gap: 1.25rem ระยะห่างระหว่างการ์ด
+ */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.25rem;
 }
 
+/**
+ * PROJECT CARD: การ์ดโครงการ
+ * - transition: ส่วน border-color กับ transform มี animation เมื่อ hover
+ * - display: block เพื่อให้ดูเหมือน link element
+ */
 .project-card {
   background: var(--paper-warm);
   border: 1px solid var(--border);
@@ -262,11 +379,21 @@ section {
   display: block;
 }
 
+/**
+ * PROJECT CARD HOVER: เอฟเฟกต์เมื่อเอาเมาส์ไปวาง
+ * - border-color: เปลี่ยนจากเทาเป็น accent color
+ * - transform: translateY(-2px) ยกการ์ดขึ้นมา 2px (float effect)
+ */
 .project-card:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
 }
 
+/**
+ * PROJECT TAG: ป้ายบ่งบอกเทคโนโลยี
+ * - display: inline-block ให้ width/height ทำงาน
+ * - text-transform: uppercase แปลงข้อความให้ตัวใหญ่
+ */
 .project-tag {
   display: inline-block;
   font-size: 10px;
@@ -295,6 +422,11 @@ section {
   margin-bottom: 10px;
 }
 
+/**
+ * PROJECT BUTTON: ปุ่ม "View Details"
+ * - cursor: pointer บ่งบอกว่าคลิกได้
+ * - transition: background มี animation เมื่อเปลี่ยนสี
+ */
 .project-btn {
   background: var(--accent);
   color: white;
@@ -313,6 +445,15 @@ section {
 }
 
 /* ─── Modal ─── */
+
+/**
+ * MODAL: ป๊อปอัป overlay สำหรับแสดงรายละเอียด
+ * - position: fixed คงที่บนหน้าจออพ (ไม่ขยับตามการเลื่อน)
+ * - z-index: 1000 อยู่บนสุดเสมอ
+ * - width: 100%, height: 100% ปิดคลุมทั้งหน้าจอ
+ * - background-color: rgba(..., 0.6) พื้นหลังมืด (backdrop)
+ * - display: none ซ่อนตั้งแต่ต้น (แสดงผ่าน JavaScript)
+ */
 .modal {
   display: none;
   position: fixed;
@@ -326,11 +467,24 @@ section {
   animation: fadeIn 0.2s ease;
 }
 
+/**
+ * FADE IN ANIMATION: จางเข้ามา
+ */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
+/**
+ * MODAL CONTENT: กล่องป๊อปอัปที่มีเนื้อหา
+ * - margin: 3% auto อยู่ตรงกลาง 3% จากด้านบน
+ * - width: 88%, max-width: 700px ความกว้างปรับตามจอ (responsive)
+ * - box-shadow: เงาลึก ให้ดูลอยตัว
+ */
 .modal-content {
   background-color: var(--paper);
   margin: 3% auto;
@@ -343,6 +497,9 @@ section {
   animation: slideIn 0.3s ease;
 }
 
+/**
+ * SLIDE IN ANIMATION: เลื่อนลงเข้ามา
+ */
 @keyframes slideIn {
   from {
     transform: translateY(-50px);
@@ -354,6 +511,11 @@ section {
   }
 }
 
+/**
+ * MODAL CLOSE: ปุ่มปิด (X)
+ * - float: right ติดขวาสุด
+ * - cursor: pointer บ่งบอกว่าคลิกได้
+ */
 .modal-close {
   color: var(--ink-muted);
   float: right;
@@ -373,6 +535,9 @@ section {
   padding-top: 0.5rem;
 }
 
+/**
+ * MODAL BODY HEADING H2: ชื่อโครงการ
+ */
 #modalBody h2 {
   font-family: var(--font-serif);
   font-size: 1.8rem;
@@ -382,6 +547,9 @@ section {
   line-height: 1.3;
 }
 
+/**
+ * MODAL BODY HEADING H3: ส่วนเรื่อง (Tech Stack, Features, Highlights)
+ */
 #modalBody h3 {
   font-family: var(--font-serif);
   font-size: 1.15rem;
@@ -395,6 +563,9 @@ section {
   margin-top: 0;
 }
 
+/**
+ * MODAL DESCRIPTION: ข้อความอธิบาย
+ */
 .modal-description {
   font-size: 1rem;
   line-height: 1.75;
@@ -402,6 +573,11 @@ section {
   margin-bottom: 1.8rem;
 }
 
+/**
+ * MODAL TECH: บรรจุปุ่มเทคโนโลยี
+ * - display: flex, flex-wrap: wrap ถ้าปุ่มมากจะขึ้นบรรทัดใหม่
+ * - gap: 0.75rem ระยะห่างระหว่างปุ่ม
+ */
 .modal-tech {
   display: flex;
   flex-wrap: wrap;
@@ -409,6 +585,10 @@ section {
   margin-bottom: 1.8rem;
 }
 
+/**
+ * PROJECT TAG MODAL: ปุ่มเทคโนโลยีในป๊อปอัป
+ * - สีขาว + background accent สำหรับสีมืด
+ */
 .project-tag-modal {
   display: inline-block;
   font-size: 11px;
@@ -426,6 +606,11 @@ section {
   background: #a85124;
 }
 
+/**
+ * MODAL FEATURES: รายชื่อคุณสมบัติ
+ * - list-style: none ซ่อนหัวข้อตัวเลขหรือจุด
+ * - li::before เพิ่มจุดสีสำหรับแต่ละรายการ
+ */
 .modal-features {
   list-style: none;
   padding: 0;
@@ -440,8 +625,13 @@ section {
   line-height: 1.7;
 }
 
+/**
+ * MODAL FEATURES BULLET: จุดสีแดง
+ * - position: absolute ตำแหน่งเหนือพื้น
+ * - left: 0 ติดด้านซ้าย
+ */
 .modal-features li::before {
-  content: '●';
+  content: "●";
   position: absolute;
   left: 0;
   color: var(--accent);
@@ -450,6 +640,10 @@ section {
   transform: translateY(-50%);
 }
 
+/**
+ * MODAL HIGHLIGHT: กล่องข้อมูลสำคัญ
+ * - border-left: 4px accent สำหรับเน้นด้านซ้าย
+ */
 .modal-highlight {
   background: var(--accent-soft);
   padding: 1.2rem 1.5rem;
@@ -465,7 +659,12 @@ section {
   color: var(--accent);
 }
 
-/* ─── Modal Responsive ─── */
+/**
+ * MODAL RESPONSIVE: ปรับขนาดป๊อปอัปสำหรับแท็บเล็ต
+ * - width: 92% มากขึ้นเพื่อให้อ่านได้ง่าย
+ * - margin: 10% auto ปรับจากตรงกลาง
+ * - padding, font-size ลดลง
+ */
 @media (max-width: 768px) {
   .modal-content {
     width: 92%;
@@ -490,6 +689,12 @@ section {
   }
 }
 
+/**
+ * MOBILE RESPONSIVE: ปรับขนาดป๊อปอัปสำหรับมือถือ
+ * - width: 94% เหลือให้หน้าจอแคบลง
+ * - padding: 20px ลดลงให้พอดีกับจอเล็ก
+ * - font-size: ลดลง
+ */
 @media (max-width: 480px) {
   .modal {
     padding-top: 20px;
@@ -528,12 +733,23 @@ section {
 }
 
 /* ─── Contact ─── */
+
+/**
+ * CONTACT GRID: บรรจุรายการติดต่อ
+ * - display: flex ข้อมูลติดต่อเรียงแนวนอน
+ * - flex-wrap: wrap ถ้าหลายรายการจะขึ้นบรรทัดใหม่
+ */
 .contact-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
+/**
+ * CONTACT ITEM: รายการติดต่อแต่ละรายการ
+ * - padding: 0.65rem 1.1rem ให้พื้นที่ภายใน
+ * - border-radius: 6px มุมโค้ง
+ */
 .contact-item {
   display: flex;
   align-items: center;
@@ -547,6 +763,11 @@ section {
   background: white;
 }
 
+/**
+ * CONTACT ITEM (LINK): เมื่อเป็น <a> tag
+ * - transition เสริมเอฟเฟกต์เมื่อ hover
+ * - hover: เปลี่ยนขอบ, ข้อความ, พื้นหลัง
+ */
 a.contact-item {
   transition:
     border-color 0.2s,
@@ -560,11 +781,19 @@ a.contact-item:hover {
   background: var(--accent-soft);
 }
 
+/**
+ * CONTACT ITEM (NON-LINK): เมื่อเป็น <div> tag (เช่น เบอร์โทรศัพท์)
+ * - cursor: default ไม่สามารถคลิกได้
+ */
 div.contact-item {
   border-color: var(--border);
   cursor: default;
 }
 
+/**
+ * CONTACT ICON: ไอคอนข้างหน้าข้อมูลติดต่อ
+ * - opacity: 0.75 ทำให้อ่อนกว่าข้อความ
+ */
 .contact-icon {
   font-size: 16px;
   opacity: 0.75;
@@ -580,6 +809,12 @@ footer {
 }
 
 /* ─── Animations ─── */
+
+/**
+ * FADE UP ANIMATION: ภาพเข้ามาจากล่างขึ้น
+ * - opacity: 0 → 1 จางเข้ามา
+ * - translateY: 18px ↓ → 0 เลื่อนขึ้นจากล่าง
+ */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -591,6 +826,10 @@ footer {
   }
 }
 
+/**
+ * ส่วนทั้งหมดที่มีการจางเข้า
+ * - animation-delay ทำให้แต่ละส่วนจางเข้ามาเป็นลำดับ (ไม่พร้อมกัน)
+ */
 header,
 section {
   animation: fadeUp 0.6s ease both;
@@ -612,7 +851,12 @@ section:nth-of-type(5) {
   animation-delay: 0.5s;
 }
 
-/* ─── Responsive ─── */
+/**
+ * RESPONSIVE FOR MOBILE: ปรับจอเล็ก (560px ลงมา)
+ * - timeline-item: เปลี่ยนจาก 2 column เป็น 1 column
+ * - timeline line + dot: ซ่อน (เพราะไม่ต้องแสดงแล้ว)
+ * - timeline-year: ปรับจากชิดขวา → ชิดซ้าย, ให้ขึ้นบรรทัดใหม่ได้
+ */
 @media (max-width: 560px) {
   .timeline-item {
     grid-template-columns: 1fr;
